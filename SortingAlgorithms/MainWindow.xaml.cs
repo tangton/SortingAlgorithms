@@ -42,10 +42,10 @@ namespace SortingAlgorithms
 
             lblListGenerated.Content = "Generated list: " + String.Join(", ", randomIntList.ToArray());
 
-            Task<long> taskSelectionSort = RunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort);
-            Task<long> taskBubbleSort = RunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort);
-            Task<long> taskInsertionSort = RunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort);
-            Task<long> taskBinaryTreeSort = RunSort(BinaryTreeSort.Sort, randomIntList, pbBinaryTreeSort, lblResultBinaryTreeSort);
+            Task<long> taskSelectionSort = RunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList);
+            Task<long> taskBubbleSort = RunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList);
+            Task<long> taskInsertionSort = RunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList);
+            Task<long> taskBinaryTreeSort = RunSort(BinaryTreeSort.Sort, randomIntList, pbBinaryTreeSort, lblResultBinaryTreeSort, lblResultBinaryTreeSortList);
 
             await taskSelectionSort;
             await taskBubbleSort;
@@ -55,10 +55,11 @@ namespace SortingAlgorithms
             btnRun.IsEnabled = true;
         }
 
-        private async Task<long> RunSort(Func<List<int>, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult)
+        private async Task<long> RunSort(Func<List<int>, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList)
         {
             progressBar.IsIndeterminate = true;
             labelResult.Content = "Sorting...";
+            labelResultSortedList.Content = string.Empty;
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -86,6 +87,7 @@ namespace SortingAlgorithms
             if (!failed)
             {
                 labelResult.Content = "Done. Time taken: " + stopWatch.Elapsed.ToString();
+                labelResultSortedList.Content = String.Join(", ", task.Result.ToArray());
             }
             else
             {
