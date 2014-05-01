@@ -9,6 +9,11 @@ namespace SortingAlgorithmsBusinessAction
 {
     public class BubbleSort
     {
+        public static List<int> Sort(List<int> collectionToSort)
+        {
+            return Sort<List<int>, int>(collectionToSort);
+        }
+
         public static T Sort<T, T2>(T collectionToSort)
             where T : IList
             where T2 : IComparable

@@ -93,6 +93,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SortingAlgorithmsBusinessAction\SortingAlgorithmsBusinessAction.csproj">
+      <Project>{7dfa4951-59c8-4775-bdf6-d088d1f1bca7}</Project>
+      <Name>SortingAlgorithmsBusinessAction</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
