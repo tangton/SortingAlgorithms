@@ -7,6 +7,7 @@
             <DockPanel LastChildFill="True">
                 <DockPanel LastChildFill="True" DockPanel.Dock="Top">
                     <Button x:Name="btnRun" Width="100" Click="btnRun_Click" Margin="10, 10">Run</Button>
+                    <Button x:Name="btnCancel" Width="100" Margin="10, 10" Click="btnCancel_Click" Visibility="Collapsed">Cancel</Button>
                     <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="10, 10" VerticalScrollBarVisibility="Visible" Height="75">
                         <Label x:Name="lblListGenerated">Generated list: Empty</Label>
                     </ScrollViewer>

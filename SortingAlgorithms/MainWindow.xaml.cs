@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Collections;
+using System.Threading;
 
 namespace SortingAlgorithms
 {
@@ -23,13 +24,28 @@ namespace SortingAlgorithms
     /// </summary>
     public partial class MainWindow : Window
     {
+        CancellationTokenSource _tokenSource = new CancellationTokenSource();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _tokenSource.Cancel();
+
+            btnCancel.Visibility = Visibility.Collapsed;
+            btnRun.Visibility = Visibility.Visible;
+            btnRun.IsEnabled = true;
+        }
+
         private async void btnRun_Click(object sender, RoutedEventArgs e)
         {
+            _tokenSource = new CancellationTokenSource();
+
+            btnCancel.Visibility = Visibility.Visible;
+            btnRun.Visibility = Visibility.Collapsed;
             btnRun.IsEnabled = false;
 
             List<int> randomIntList = new List<int>();
@@ -42,20 +58,31 @@ namespace SortingAlgorithms
 
             lblListGenerated.Content = "Generated list: " + String.Join(", ", randomIntList.ToArray());
 
-            Task<long> taskSelectionSort = RunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList);
-            Task<long> taskBubbleSort = RunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList);
-            Task<long> taskInsertionSort = RunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList);
-            Task<long> taskBinaryTreeSort = RunSort(BinaryTreeSort.Sort, randomIntList, pbBinaryTreeSort, lblResultBinaryTreeSort, lblResultBinaryTreeSortList);
+            List<Task<long>> taskList = new List<Task<long>>();
 
-            await taskSelectionSort;
-            await taskBubbleSort;
-            await taskInsertionSort;
-            await taskBinaryTreeSort;
+            Task<long> taskSelectionSort = RunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList, _tokenSource.Token);
+            Task<long> taskBubbleSort = RunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList, _tokenSource.Token);
+            Task<long> taskInsertionSort = RunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList, _tokenSource.Token);
+            Task<long> taskBinaryTreeSort = RunSort(BinaryTreeSort.Sort, randomIntList, pbBinaryTreeSort, lblResultBinaryTreeSort, lblResultBinaryTreeSortList, _tokenSource.Token);
 
+            taskList.Add(taskSelectionSort);
+            taskList.Add(taskBubbleSort);
+            taskList.Add(taskInsertionSort);
+            taskList.Add(taskBinaryTreeSort);
+
+            while (taskList.Count > 0)
+            {
+                Task<long> firstFinishedTask = await Task.WhenAny(taskList);
+                taskList.Remove(firstFinishedTask);
+                await firstFinishedTask;
+            }
+
+            btnCancel.Visibility = Visibility.Collapsed;
+            btnRun.Visibility = Visibility.Visible;
             btnRun.IsEnabled = true;
         }
 
-        private async Task<long> RunSort(Func<List<int>, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList)
+        private async Task<long> RunSort(Func<List<int>, CancellationToken, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList, CancellationToken cancellationToken)
         {
             progressBar.IsIndeterminate = true;
             labelResult.Content = "Sorting...";
@@ -64,34 +91,44 @@ namespace SortingAlgorithms
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            Task<List<int>> task = Task.Factory.StartNew(() => sortFunction(listToSort));
+            Task<List<int>> task = Task.Factory.StartNew(() => sortFunction(listToSort, cancellationToken), cancellationToken);
 
             bool failed = false;
-            string failMessage = string.Empty;
+            bool cancelled = false;
+            string message = string.Empty;
 
             try
             {
                 await task;
             }
+            catch (OperationCanceledException)
+            {
+                cancelled = true;
+            }
             catch (Exception ex)
             {
                 failed = true;
-                failMessage = ex.Message;
+                message = ex.Message;
             }
 
             stopWatch.Stop();
 
             progressBar.IsIndeterminate = false;
-            progressBar.Value = 100;
 
-            if (!failed)
+            if (cancelled)
             {
+                progressBar.Value = 0;
+                labelResult.Content = "Sort cancelled.";
+            }
+            else if (!failed)
+            {
+                progressBar.Value = 100;
                 labelResult.Content = "Done. Time taken: " + stopWatch.Elapsed.ToString();
                 labelResultSortedList.Content = String.Join(", ", task.Result.ToArray());
             }
             else
             {
-                labelResult.Content = "Sort failed. Message: " + failMessage;
+                labelResult.Content = "Sort failed. Message: " + message;
             }
 
             return stopWatch.ElapsedMilliseconds;

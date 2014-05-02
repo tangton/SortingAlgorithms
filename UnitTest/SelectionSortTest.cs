@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SortingAlgorithmsBusinessAction;
 using System.Collections.Generic;
 using System.Collections;
+using System.Threading;
 
 namespace UnitTest
 {
@@ -10,6 +11,7 @@ namespace UnitTest
     public class SelectionSortTest
     {
         List<int> _randomIntegerList = new List<int>();
+        CancellationToken _cancellationToken = new CancellationToken();
 
         [TestInitialize()]
         public void Initialize()
@@ -20,7 +22,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfInt()
         {
-            List<int> result = SelectionSort.Sort<List<int>, int>(TestInitialiser.IntList);
+            List<int> result = SelectionSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken);
 
             TestInitialiser.AssertInt(result);
         }
@@ -28,7 +30,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortRandomListOfInt()
         {
-            List<int> result = SelectionSort.Sort<List<int>, int>(_randomIntegerList);
+            List<int> result = SelectionSort.Sort<List<int>, int>(_randomIntegerList, _cancellationToken);
 
             TestInitialiser.AssertRandom(result);
         }
@@ -36,7 +38,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfChar()
         {
-            List<char> result = SelectionSort.Sort<List<char>, char>(TestInitialiser.CharList);
+            List<char> result = SelectionSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken);
 
             TestInitialiser.AssertChar(result);
         }
@@ -50,7 +52,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfString()
         {
-            ArrayList result = SelectionSort.Sort<ArrayList, string>(TestInitialiser.StringList);
+            ArrayList result = SelectionSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken);
 
             TestInitialiser.AssertString(result);
         }
