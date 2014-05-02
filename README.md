@@ -7,4 +7,4 @@ Implementation of the following sort algorithms in C#.
  - insertion sort
  - binary tree sort
  
-Also contains WPF gui using TPL.
+Also contains a WPF gui using the Task Parallel Library (TPL).
