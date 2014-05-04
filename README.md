@@ -8,3 +8,5 @@ Implementation of the following sort algorithms in C#.
  - binary tree sort
  
 Also contains a WPF gui using the Task Parallel Library (TPL).
+
+![Screenshot](https://raw.githubusercontent.com/tangton/SortingAlgorithms/master/SortingAlgorithms/Screenshot.png)
