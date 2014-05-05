@@ -24,7 +24,8 @@ namespace SortingAlgorithms
     /// </summary>
     public partial class MainWindow : Window
     {
-        CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private int _collectionListSize = 10000;
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         public MainWindow()
         {
@@ -51,10 +52,15 @@ namespace SortingAlgorithms
             List<int> randomIntList = new List<int>();
 
             Random random = new Random();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < _collectionListSize; i++)
             {
                 randomIntList.Add(random.Next(1000));
             }
+
+            pbSelectionSort.Maximum = _collectionListSize;
+            pbBubbleSort.Maximum = _collectionListSize;
+            pbInsertionSort.Maximum = _collectionListSize;
+            pbBinaryTreeSort.Maximum = _collectionListSize;
 
             lblListGenerated.Content = "Generated list: " + String.Join(", ", randomIntList.ToArray());
 
@@ -82,16 +88,18 @@ namespace SortingAlgorithms
             btnRun.IsEnabled = true;
         }
 
-        private async Task<long> RunSort(Func<List<int>, CancellationToken, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList, CancellationToken cancellationToken)
+        private async Task<long> RunSort(Func<List<int>, CancellationToken, Progress<int>, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList, CancellationToken cancellationToken)
         {
-            progressBar.IsIndeterminate = true;
+            Progress<int> progress = new Progress<int>(value => progressBar.Value = value);
+
             labelResult.Content = "Sorting...";
             labelResultSortedList.Content = string.Empty;
+            progressBar.Value = 0;
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            Task<List<int>> task = Task.Factory.StartNew(() => sortFunction(listToSort, cancellationToken), cancellationToken);
+            Task<List<int>> task = Task.Factory.StartNew(() => sortFunction(listToSort, cancellationToken, progress), cancellationToken);
 
             bool failed = false;
             bool cancelled = false;
@@ -113,8 +121,6 @@ namespace SortingAlgorithms
 
             stopWatch.Stop();
 
-            progressBar.IsIndeterminate = false;
-
             if (cancelled)
             {
                 progressBar.Value = 0;
@@ -122,7 +128,7 @@ namespace SortingAlgorithms
             }
             else if (!failed)
             {
-                progressBar.Value = 100;
+                progressBar.Value = _collectionListSize;
                 labelResult.Content = "Done. Time taken: " + stopWatch.Elapsed.ToString();
                 labelResultSortedList.Content = String.Join(", ", task.Result.ToArray());
             }

@@ -10,12 +10,12 @@ namespace SortingAlgorithmsBusinessAction
 {
     public class InsertionSort
     {
-        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken)
+        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
         {
-            return Sort<List<int>, int>(collectionToSort, cancellationToken);
+            return Sort<List<int>, int>(collectionToSort, cancellationToken, progress);
         }
 
-        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken)
+        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IList
             where T2 : IComparable
         {
@@ -23,19 +23,21 @@ namespace SortingAlgorithmsBusinessAction
 
             foreach (var item in collectionToSort)
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 sortedList.Add(item);
             }
 
             for (int i = 1; i < sortedList.Count; i++)
             {
+                if (i % 100 == 0)
+                {
+                    progress.Report(i);
+                }
                 cancellationToken.ThrowIfCancellationRequested();
                 int j = i;
 
                 while (j > 0 &&
                     ((T2)sortedList[j]).CompareTo((T2)sortedList[j - 1]) < 0)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
                     T2 tempValue = (T2)sortedList[j -1];
 
                     sortedList[j - 1] = sortedList[j];

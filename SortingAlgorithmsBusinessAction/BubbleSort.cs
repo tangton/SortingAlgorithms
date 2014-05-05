@@ -10,12 +10,12 @@ namespace SortingAlgorithmsBusinessAction
 {
     public class BubbleSort
     {
-        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken)
+        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
         {
-            return Sort<List<int>, int>(collectionToSort, cancellationToken);
+            return Sort<List<int>, int>(collectionToSort, cancellationToken, progress);
         }
 
-        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken)
+        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IList
             where T2 : IComparable
         {
@@ -23,16 +23,18 @@ namespace SortingAlgorithmsBusinessAction
 
             foreach (var item in collectionToSort)
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 sortedList.Add(item);
             }
 
             for (int j = 0; j < sortedList.Count; j++)
             {
+                if (j % 100 == 0)
+                {
+                    progress.Report(j);
+                }
                 cancellationToken.ThrowIfCancellationRequested();
                 for (int i = 0; i < sortedList.Count; i++)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
                     if (i + 1 < sortedList.Count &&
                         ((T2)sortedList[i]).CompareTo((T2)sortedList[i + 1]) > 0)
                     {

@@ -12,6 +12,7 @@ namespace UnitTest
     {
         List<int> _randomIntegerList = new List<int>();
         CancellationToken _cancellationToken = new CancellationToken();
+        Progress<int> _progress = new Progress<int>();
 
         [TestInitialize()]
         public void Initialize()
@@ -22,7 +23,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfInt()
         {
-            List<int> result = SelectionSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken);
+            List<int> result = SelectionSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertInt(result);
         }
@@ -30,7 +31,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortRandomListOfInt()
         {
-            List<int> result = SelectionSort.Sort<List<int>, int>(_randomIntegerList, _cancellationToken);
+            List<int> result = SelectionSort.Sort<List<int>, int>(_randomIntegerList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom(result);
         }
@@ -38,7 +39,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfChar()
         {
-            List<char> result = SelectionSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken);
+            List<char> result = SelectionSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertChar(result);
         }
@@ -52,7 +53,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfString()
         {
-            ArrayList result = SelectionSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken);
+            ArrayList result = SelectionSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken, _progress);
 
             TestInitialiser.AssertString(result);
         }

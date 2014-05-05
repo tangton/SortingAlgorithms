@@ -11,12 +11,12 @@ namespace SortingAlgorithmsBusinessAction
 {
     public class BinaryTreeSort
     {
-        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken)
+        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
         {
-            return Sort<List<int>, int>(collectionToSort, cancellationToken);
+            return Sort<List<int>, int>(collectionToSort, cancellationToken, progress);
         }
 
-        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken)
+        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IList
             where T2 : IComparable
         {
@@ -24,18 +24,17 @@ namespace SortingAlgorithmsBusinessAction
 
             foreach (T2 item in collectionToSort)
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 binaryTree.Insert(item);
             }
 
             T sortedList = Activator.CreateInstance<T>();
 
-            ReadTree<T, T2>(binaryTree, sortedList, cancellationToken);
+            ReadTree<T, T2>(binaryTree, sortedList, cancellationToken, progress);
 
             return sortedList;
         }
 
-        private static void ReadTree<T, T2>(BinaryTreeNode<T2> node, T list, CancellationToken cancellationToken)
+        private static void ReadTree<T, T2>(BinaryTreeNode<T2> node, T list, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IList
             where T2 : IComparable
         {
@@ -46,9 +45,9 @@ namespace SortingAlgorithmsBusinessAction
                 return;
             }
 
-            ReadTree<T, T2>(temp.LeftNode, list, cancellationToken);
+            ReadTree<T, T2>(temp.LeftNode, list, cancellationToken, progress);
             list.Add(temp.Value);
-            ReadTree<T, T2>(temp.RightNode, list, cancellationToken);
+            ReadTree<T, T2>(temp.RightNode, list, cancellationToken, progress);
         }
     }
 }
