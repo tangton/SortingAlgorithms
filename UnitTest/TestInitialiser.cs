@@ -12,6 +12,7 @@ namespace UnitTest
     {
         static List<int> _intList = new List<int> { 1, 10, 10, 5, 0, -1 };
         static List<int> _randomIntList = GetAndInitializeRandomIntList();
+        static List<char> _randomCharList = GetAndInitializeRandomCharList();
 
         static List<char> _charList = new List<char> { 'z', 'b', 'a', 'b' };
         static ArrayList _stringList = new ArrayList { "One", "Two", "Three", "Four" };
@@ -61,6 +62,28 @@ namespace UnitTest
             }
         }
 
+        private static List<char> GetAndInitializeRandomCharList()
+        {
+            List<char> randomCharList = new List<char>();
+            string characterString = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
+
+            Random random = new Random();
+            for (int i = 0; i < 100; i++)
+            {
+                randomCharList.Add(characterString[random.Next(0, characterString.Length - 1)]);
+            }
+
+            return randomCharList;
+        }
+
+        public static List<char> RandomCharList
+        {
+            get
+            {
+                return _randomCharList;
+            }
+        }
+
         public static void AssertInt(IList result)
         {
             Assert.AreEqual(-1, result[0]);
@@ -71,11 +94,12 @@ namespace UnitTest
             Assert.AreEqual(10, result[5]);
         }
 
-        public static void AssertRandom(IList result)
+        public static void AssertRandom<T>(IList result) 
+            where T : IComparable
         {
             for (int i = 0; i < result.Count - 1; i++)
             {
-                Assert.IsTrue((int)result[i] <= (int)result[i + 1]);
+                Assert.IsTrue(((T)result[i]).CompareTo((T)result[i + 1]) <= 0);
             }
         }
 

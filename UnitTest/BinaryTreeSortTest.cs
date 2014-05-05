@@ -10,14 +10,17 @@ namespace UnitTest
     [TestClass]
     public class BinaryTreeSortTest
     {
-        List<int> _randomIntegerList = new List<int>();
+        List<int> _randomIntList = new List<int>();
+        List<char> _randomCharList = new List<char>();
+
         CancellationToken _cancellationToken = new CancellationToken();
         Progress<int> _progress = new Progress<int>();
 
         [TestInitialize()]
         public void Initialize()
         {
-            _randomIntegerList = TestInitialiser.RandomIntList;
+            _randomIntList = TestInitialiser.RandomIntList;
+            _randomCharList = TestInitialiser.RandomCharList;
         }
 
         [TestMethod]
@@ -31,9 +34,9 @@ namespace UnitTest
         [TestMethod]
         public void TestBinaryTreeSortRandomListOfInt()
         {
-            List<int> result = BinaryTreeSort.Sort<List<int>, int>(_randomIntegerList, _cancellationToken, _progress);
+            List<int> result = BinaryTreeSort.Sort<List<int>, int>(_randomIntList, _cancellationToken, _progress);
 
-            TestInitialiser.AssertRandom(result);
+            TestInitialiser.AssertRandom<int>(result);
         }
 
         [TestMethod]
@@ -47,7 +50,9 @@ namespace UnitTest
         [TestMethod]
         public void TestBinaryTreeSortRandomListOfChar()
         {
+            List<char> result = BinaryTreeSort.Sort<List<char>, char>(_randomCharList, _cancellationToken, _progress);
 
+            TestInitialiser.AssertRandom<char>(result);
         }
 
         [TestMethod]

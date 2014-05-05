@@ -24,7 +24,7 @@ namespace SortingAlgorithms
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int _collectionListSize = 10000;
+        private int _collectionListSize = 5000;
         private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         public MainWindow()
