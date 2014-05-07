@@ -57,11 +57,6 @@ namespace SortingAlgorithms
                 randomIntList.Add(random.Next(1000));
             }
 
-            pbSelectionSort.Maximum = _collectionListSize;
-            pbBubbleSort.Maximum = _collectionListSize;
-            pbInsertionSort.Maximum = _collectionListSize;
-            pbBinaryTreeSort.Maximum = _collectionListSize;
-
             lblListGenerated.Content = "Generated list: " + String.Join(", ", randomIntList.ToArray());
 
             List<Task<long>> taskList = new List<Task<long>>();
@@ -76,12 +71,7 @@ namespace SortingAlgorithms
             taskList.Add(taskInsertionSort);
             taskList.Add(taskBinaryTreeSort);
 
-            while (taskList.Count > 0)
-            {
-                Task<long> firstFinishedTask = await Task.WhenAny(taskList);
-                taskList.Remove(firstFinishedTask);
-                await firstFinishedTask;
-            }
+            await Task.WhenAll(taskList);
 
             btnCancel.Visibility = Visibility.Collapsed;
             btnRun.Visibility = Visibility.Visible;
@@ -95,6 +85,7 @@ namespace SortingAlgorithms
             labelResult.Content = "Sorting...";
             labelResultSortedList.Content = string.Empty;
             progressBar.Value = 0;
+            progressBar.Maximum = _collectionListSize;
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
