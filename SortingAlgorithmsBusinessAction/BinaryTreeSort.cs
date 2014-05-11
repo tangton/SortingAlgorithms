@@ -22,9 +22,13 @@ namespace SortingAlgorithmsBusinessAction
         {
             BinaryTreeNode<T2> binaryTree = new BinaryTreeNode<T2>();
 
-            foreach (T2 item in collectionToSort)
+            for(int i = 0; i < collectionToSort.Count; i++)
             {
-                binaryTree.Insert(item);
+                if (i % 100 == 1)
+                {
+                    progress.Report(i);
+                }
+                binaryTree.Insert((T2)collectionToSort[i]);
             }
 
             T sortedList = Activator.CreateInstance<T>();
