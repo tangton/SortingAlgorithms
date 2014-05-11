@@ -24,6 +24,7 @@ namespace SortingAlgorithmsBusinessAction
 
             for(int i = 0; i < collectionToSort.Count; i++)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 if (i % 100 == 1)
                 {
                     progress.Report(i);
@@ -33,25 +34,24 @@ namespace SortingAlgorithmsBusinessAction
 
             T sortedList = Activator.CreateInstance<T>();
 
-            ReadTree<T, T2>(binaryTree, sortedList, cancellationToken, progress);
+            ReadTree<T, T2>(binaryTree, sortedList);
 
             return sortedList;
         }
 
-        private static void ReadTree<T, T2>(BinaryTreeNode<T2> node, T list, CancellationToken cancellationToken, IProgress<int> progress)
+        private static void ReadTree<T, T2>(BinaryTreeNode<T2> node, T list)
             where T : IList
             where T2 : IComparable
         {
-            cancellationToken.ThrowIfCancellationRequested();
             BinaryTreeNode<T2> temp = node;
             if (temp == null)
             {
                 return;
             }
 
-            ReadTree<T, T2>(temp.LeftNode, list, cancellationToken, progress);
+            ReadTree<T, T2>(temp.LeftNode, list);
             list.Add(temp.Value);
-            ReadTree<T, T2>(temp.RightNode, list, cancellationToken, progress);
+            ReadTree<T, T2>(temp.RightNode, list);
         }
     }
 }
