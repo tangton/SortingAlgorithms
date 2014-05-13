@@ -36,7 +36,7 @@ namespace SortingAlgorithmsBusinessAction
                 int j = i;
 
                 while (j > 0 &&
-                    ((T2)sortedList[j]).CompareTo((T2)sortedList[j - 1]) < 0)
+                    ((T2)sortedList[j - 1]).CompareTo((T2)sortedList[j]) > 0)
                 {
                     T2 tempValue = (T2)sortedList[j -1];
 

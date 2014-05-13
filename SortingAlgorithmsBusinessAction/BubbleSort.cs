@@ -26,6 +26,8 @@ namespace SortingAlgorithmsBusinessAction
                 sortedList.Add(item);
             }
 
+            bool sortCompleted = true;
+
             for (int j = 0; j < sortedList.Count; j++)
             {
                 if (j % 100 == 0)
@@ -33,6 +35,9 @@ namespace SortingAlgorithmsBusinessAction
                     progress.Report(j);
                 }
                 cancellationToken.ThrowIfCancellationRequested();
+
+                sortCompleted = true;
+
                 for (int i = 0; i < sortedList.Count; i++)
                 {
                     if (i + 1 < sortedList.Count &&
@@ -42,7 +47,14 @@ namespace SortingAlgorithmsBusinessAction
                         T2 tempValue = (T2)sortedList[i];
                         sortedList[i] = sortedList[i + 1];
                         sortedList[i + 1] = tempValue;
+
+                        sortCompleted = false;
                     }
+                }
+
+                if (sortCompleted)
+                {
+                    break;
                 }
             }
 
