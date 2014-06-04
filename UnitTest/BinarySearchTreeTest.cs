@@ -8,7 +8,7 @@ using System.Threading;
 namespace UnitTest
 {
     [TestClass]
-    public class BinaryTreeSortTest
+    public class BinarySearchTreeTest
     {
         List<int> _randomIntList = new List<int>();
         List<char> _randomCharList = new List<char>();
@@ -24,47 +24,47 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortListOfInt()
+        public void TestBinarySearchTreeListOfInt()
         {
-            List<int> result = BinaryTreeSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken, _progress);
+            List<int> result = BinarySearchTree.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertInt(result);
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortRandomListOfInt()
+        public void TestBinarySearchTreeRandomListOfInt()
         {
-            List<int> result = BinaryTreeSort.Sort<List<int>, int>(_randomIntList, _cancellationToken, _progress);
+            List<int> result = BinarySearchTree.Sort<List<int>, int>(_randomIntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<int>(result);
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortListOfChar()
+        public void TestBinarySearchTreeListOfChar()
         {
-            List<char> result = BinaryTreeSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken, _progress);
+            List<char> result = BinarySearchTree.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertChar(result);
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortRandomListOfChar()
+        public void TestBinarySearchTreeRandomListOfChar()
         {
-            List<char> result = BinaryTreeSort.Sort<List<char>, char>(_randomCharList, _cancellationToken, _progress);
+            List<char> result = BinarySearchTree.Sort<List<char>, char>(_randomCharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<char>(result);
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortListOfString()
+        public void TestBinarySearchTreeListOfString()
         {
-            ArrayList result = BinaryTreeSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken, _progress);
+            ArrayList result = BinarySearchTree.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken, _progress);
 
             TestInitialiser.AssertString(result);
         }
 
         [TestMethod]
-        public void TestBinaryTreeSortRandomListOfString()
+        public void TestBinarySearchTreeRandomListOfString()
         {
 
         }

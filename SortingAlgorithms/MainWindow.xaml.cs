@@ -64,12 +64,12 @@ namespace SortingAlgorithms
             Task taskSelectionSort = PrepareAndRunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList, _tokenSource.Token);
             Task taskBubbleSort = PrepareAndRunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList, _tokenSource.Token);
             Task taskInsertionSort = PrepareAndRunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList, _tokenSource.Token);
-            Task taskBinaryTreeSort = PrepareAndRunSort(BinaryTreeSort.Sort, randomIntList, pbBinaryTreeSort, lblResultBinaryTreeSort, lblResultBinaryTreeSortList, _tokenSource.Token);
+            Task taskBinarySearchTree = PrepareAndRunSort(BinarySearchTree.Sort, randomIntList, pbBinarySearchTree, lblResultBinarySearchTree, lblResultBinarySearchTreeList, _tokenSource.Token);
 
             taskList.Add(taskSelectionSort);
             taskList.Add(taskBubbleSort);
             taskList.Add(taskInsertionSort);
-            taskList.Add(taskBinaryTreeSort);
+            taskList.Add(taskBinarySearchTree);
 
             await Task.WhenAll(taskList);
 

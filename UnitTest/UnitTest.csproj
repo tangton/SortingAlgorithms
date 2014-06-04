@@ -53,7 +53,7 @@
     <Compile Include="BubbleSortTest.cs" />
     <Compile Include="InsertionSortTest.cs" />
     <Compile Include="SelectionSortTest.cs" />
-    <Compile Include="BinaryTreeSortTest.cs" />
+    <Compile Include="BinarySearchTreeTest.cs" />
     <Compile Include="TestInitialiser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

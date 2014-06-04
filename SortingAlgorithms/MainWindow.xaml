@@ -14,51 +14,51 @@
                 </DockPanel>
                 <StackPanel Margin="0, 10">
                     <DockPanel Margin="0, 10">
-                        <Label Width="100" DockPanel.Dock="Left">Selection Sort:</Label>
+                        <Label Width="120" DockPanel.Dock="Left">Selection Sort:</Label>
                         <ProgressBar x:Name="pbSelectionSort" Margin="10, 0"></ProgressBar>
                     </DockPanel>
                     <StackPanel>
-                        <Label x:Name="lblResultSelectionSort" Margin="105, 0, 0, 0">Idle.</Label>
+                        <Label x:Name="lblResultSelectionSort" Margin="125, 0, 0, 0">Idle.</Label>
                     </StackPanel>
                     <DockPanel>
-                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="105, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="125, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
                             <Label x:Name="lblResultSelectionSortList"></Label>
                         </ScrollViewer>
                     </DockPanel>
                     <DockPanel Margin="0, 10">
-                        <Label Width="100" DockPanel.Dock="Left">Bubble Sort:</Label>
+                        <Label Width="120" DockPanel.Dock="Left">Bubble Sort:</Label>
                         <ProgressBar x:Name="pbBubbleSort" Margin="10, 0"></ProgressBar>
                     </DockPanel>
                     <StackPanel>
-                        <Label x:Name="lblResultBubbleSort" Margin="105, 0, 0, 0">Idle.</Label>
+                        <Label x:Name="lblResultBubbleSort" Margin="125, 0, 0, 0">Idle.</Label>
                     </StackPanel>
                     <DockPanel>
-                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="105, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="125, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
                             <Label x:Name="lblResultBubbleSortList"></Label>
                         </ScrollViewer>
                     </DockPanel>
                     <DockPanel Margin="0, 10">
-                        <Label Width="100" DockPanel.Dock="Left">Insertion Sort:</Label>
+                        <Label Width="120" DockPanel.Dock="Left">Insertion Sort:</Label>
                         <ProgressBar x:Name="pbInsertionSort" Margin="10, 0"></ProgressBar>
                     </DockPanel>
                     <StackPanel>
-                        <Label x:Name="lblResultInsertionSort" Margin="105, 0, 0, 0">Idle.</Label>
+                        <Label x:Name="lblResultInsertionSort" Margin="125, 0, 0, 0">Idle.</Label>
                     </StackPanel>
                     <DockPanel>
-                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="105, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="125, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
                             <Label x:Name="lblResultInsertionSortList"></Label>
                         </ScrollViewer>
                     </DockPanel>
                     <DockPanel Margin="0, 10">
-                        <Label Width="100" DockPanel.Dock="Left">Binary Tree Sort:</Label>
-                        <ProgressBar x:Name="pbBinaryTreeSort" Margin="10, 0"></ProgressBar>
+                        <Label Width="120" DockPanel.Dock="Left">Binary Search Tree:</Label>
+                        <ProgressBar x:Name="pbBinarySearchTree" Margin="10, 0"></ProgressBar>
                     </DockPanel>
                     <StackPanel>
-                        <Label x:Name="lblResultBinaryTreeSort" Margin="105, 0, 0, 0">Idle.</Label>
+                        <Label x:Name="lblResultBinarySearchTree" Margin="125, 0, 0, 0">Idle.</Label>
                     </StackPanel>
                     <DockPanel>
-                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="105, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
-                            <Label x:Name="lblResultBinaryTreeSortList"></Label>
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="125, 0, 10, 00" VerticalScrollBarVisibility="Visible" Height="75">
+                            <Label x:Name="lblResultBinarySearchTreeList"></Label>
                         </ScrollViewer>
                     </DockPanel>
                 </StackPanel>

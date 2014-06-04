@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryTreeSort.cs" />
+    <Compile Include="BinarySearchTree.cs" />
     <Compile Include="BinaryTree\BinaryTreeNode.cs" />
     <Compile Include="BubbleSort.cs" />
     <Compile Include="InsertionSort.cs" />

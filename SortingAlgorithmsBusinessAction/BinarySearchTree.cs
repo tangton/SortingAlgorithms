@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SortingAlgorithmsBusinessAction
 {
-    public class BinaryTreeSort
+    public class BinarySearchTree
     {
         public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
         {
