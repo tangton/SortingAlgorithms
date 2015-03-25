@@ -1,20 +1,10 @@
 ﻿using SortingAlgorithmsBusinessAction;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Diagnostics;
-using System.Collections;
 using System.Threading;
 
 namespace SortingAlgorithms
@@ -24,7 +14,7 @@ namespace SortingAlgorithms
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int _collectionListSize = 5000;
+        private const int CollectionListSize = 5000;
         private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         public MainWindow()
@@ -49,22 +39,22 @@ namespace SortingAlgorithms
             btnRun.Visibility = Visibility.Collapsed;
             btnRun.IsEnabled = false;
 
-            List<int> randomIntList = new List<int>();
+            var randomIntList = new List<int>();
 
-            Random random = new Random();
-            for (int i = 0; i < _collectionListSize; i++)
+            var random = new Random();
+            for (var i = 0; i < CollectionListSize; i++)
             {
                 randomIntList.Add(random.Next(1000));
             }
 
             lblListGenerated.Content = "Generated list: " + String.Join(", ", randomIntList.ToArray());
 
-            List<Task> taskList = new List<Task>();
+            var taskList = new List<Task>();
 
-            Task taskSelectionSort = PrepareAndRunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList, _tokenSource.Token);
-            Task taskBubbleSort = PrepareAndRunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList, _tokenSource.Token);
-            Task taskInsertionSort = PrepareAndRunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList, _tokenSource.Token);
-            Task taskBinarySearchTree = PrepareAndRunSort(BinarySearchTree.Sort, randomIntList, pbBinarySearchTree, lblResultBinarySearchTree, lblResultBinarySearchTreeList, _tokenSource.Token);
+            var taskSelectionSort = PrepareAndRunSort(SelectionSort.Sort, randomIntList, pbSelectionSort, lblResultSelectionSort, lblResultSelectionSortList, _tokenSource.Token);
+            var taskBubbleSort = PrepareAndRunSort(BubbleSort.Sort, randomIntList, pbBubbleSort, lblResultBubbleSort, lblResultBubbleSortList, _tokenSource.Token);
+            var taskInsertionSort = PrepareAndRunSort(InsertionSort.Sort, randomIntList, pbInsertionSort, lblResultInsertionSort, lblResultInsertionSortList, _tokenSource.Token);
+            var taskBinarySearchTree = PrepareAndRunSort(BinarySearchTree.Sort, randomIntList, pbBinarySearchTree, lblResultBinarySearchTree, lblResultBinarySearchTreeList, _tokenSource.Token);
 
             taskList.Add(taskSelectionSort);
             taskList.Add(taskBubbleSort);
@@ -80,27 +70,27 @@ namespace SortingAlgorithms
 
         private async Task PrepareAndRunSort(Func<List<int>, CancellationToken, IProgress<int>, List<int>> sortFunction, List<int> listToSort, ProgressBar progressBar, Label labelResult, Label labelResultSortedList, CancellationToken cancellationToken)
         {
-            Progress<int> progress = new Progress<int>(value => progressBar.Value = value);
-            Progress<bool> startingSort = new Progress<bool>(value => labelResult.Content = "Sorting...");
+            var progress = new Progress<int>(value => progressBar.Value = value);
+            var startingSort = new Progress<bool>(value => labelResult.Content = "Sorting...");
 
             labelResult.Content = "Pending...";
             labelResultSortedList.Content = string.Empty;
             progressBar.Value = 0;
-            progressBar.Maximum = _collectionListSize;
+            progressBar.Maximum = CollectionListSize;
 
-            Task<Tuple<TimeSpan, List<int>>> task = Task.Factory.StartNew(() => RunSort(sortFunction, listToSort, progress, startingSort, cancellationToken), cancellationToken);
+            var task = Task.Factory.StartNew(() => RunSort(sortFunction, listToSort, progress, startingSort, cancellationToken), cancellationToken);
 
-            bool failed = false;
-            bool cancelled = false;
-            string message = string.Empty;
+            var failed = false;
+            var cancelled = false;
+            var message = string.Empty;
 
-            TimeSpan durationOfSort = new TimeSpan();
+            var durationOfSort = new TimeSpan();
 
             try
             {
                 await task;
 
-                durationOfSort = task.Result.Item1;
+                durationOfSort = task.Result.Duration;
             }
             catch (OperationCanceledException)
             {
@@ -119,9 +109,9 @@ namespace SortingAlgorithms
             }
             else if (!failed)
             {
-                progressBar.Value = _collectionListSize;
-                labelResult.Content = "Done. Time taken: " + durationOfSort.ToString();
-                labelResultSortedList.Content = String.Join(", ", task.Result.Item2.ToArray());
+                progressBar.Value = CollectionListSize;
+                labelResult.Content = "Done. Time taken: " + durationOfSort;
+                labelResultSortedList.Content = String.Join(", ", task.Result.SortedList);
             }
             else
             {
@@ -129,17 +119,17 @@ namespace SortingAlgorithms
             }
         }
 
-        private Tuple<TimeSpan, List<int>> RunSort(Func<List<int>, CancellationToken, IProgress<int>, List<int>> sortFunction, List<int> listToSort, IProgress<int> progress, IProgress<bool> startingSort, CancellationToken cancellationToken)
+        private static SortResult RunSort(Func<List<int>, CancellationToken, IProgress<int>, List<int>> sortFunction, List<int> listToSort, IProgress<int> progress, IProgress<bool> startingSort, CancellationToken cancellationToken)
         {
-            Stopwatch stopWatch = new Stopwatch();
+            var stopWatch = new Stopwatch();
             stopWatch.Start();
 
             startingSort.Report(true);
-            List<int> sortedList = sortFunction(listToSort, cancellationToken, progress);
+            var sortedList = sortFunction(listToSort, cancellationToken, progress);
 
             stopWatch.Stop();
 
-            return new Tuple<TimeSpan, List<int>>(stopWatch.Elapsed, sortedList);
+            return new SortResult { Duration = stopWatch.Elapsed, SortedList = sortedList };
         }
     }
 }

@@ -15,7 +15,7 @@ namespace UnitTest
         static List<char> _randomCharList = GetAndInitializeRandomCharList();
 
         static List<char> _charList = new List<char> { 'z', 'b', 'a', 'b' };
-        static ArrayList _stringList = new ArrayList { "One", "Two", "Three", "Four" };
+        static List<string> _stringList = new List<string> { "One", "Two", "Three", "Four" };
 
         public static List<int> IntList
         {
@@ -33,7 +33,7 @@ namespace UnitTest
             }
         }
 
-        public static ArrayList StringList
+        public static List<string> StringList
         {
             get
             {
@@ -43,9 +43,9 @@ namespace UnitTest
 
         private static List<int> GetAndInitializeRandomIntList()
         {
-            List<int> randomIntList = new List<int>();
+            var randomIntList = new List<int>();
 
-            Random random = new Random();
+            var random = new Random();
             for (int i = 0; i < 100; i++)
             {
                 randomIntList.Add(random.Next(1000));
@@ -64,10 +64,10 @@ namespace UnitTest
 
         private static List<char> GetAndInitializeRandomCharList()
         {
-            List<char> randomCharList = new List<char>();
-            string characterString = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
+            var randomCharList = new List<char>();
+            const string characterString = "$%#@!*abcdefghijklmnopqrstuvwxyz1234567890?;:ABCDEFGHIJKLMNOPQRSTUVWXYZ^&";
 
-            Random random = new Random();
+            var random = new Random();
             for (int i = 0; i < 100; i++)
             {
                 randomCharList.Add(characterString[random.Next(0, characterString.Length - 1)]);
@@ -95,7 +95,7 @@ namespace UnitTest
         }
 
         public static void AssertRandom<T>(IList result) 
-            where T : IComparable
+            where T : IComparable<T>
         {
             for (int i = 0; i < result.Count - 1; i++)
             {

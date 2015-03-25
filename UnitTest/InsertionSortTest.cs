@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SortingAlgorithmsBusinessAction;
 using System.Collections.Generic;
-using System.Collections;
 using System.Threading;
 
 namespace UnitTest
@@ -13,8 +12,8 @@ namespace UnitTest
         List<int> _randomIntList = new List<int>();
         List<char> _randomCharList = new List<char>();
 
-        CancellationToken _cancellationToken = new CancellationToken();
-        Progress<int> _progress = new Progress<int>();
+        readonly CancellationToken _cancellationToken = new CancellationToken();
+        readonly Progress<int> _progress = new Progress<int>();
 
         [TestInitialize()]
         public void Initialize()
@@ -26,7 +25,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfInt()
         {
-            List<int> result = InsertionSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken, _progress);
+            var result = InsertionSort.Sort<int>(TestInitialiser.IntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertInt(result);
         }
@@ -34,7 +33,7 @@ namespace UnitTest
         [TestMethod]
         public void TestInsertionSortRandomListOfInt()
         {
-            List<int> result = InsertionSort.Sort<List<int>, int>(_randomIntList, _cancellationToken, _progress);
+            var result = InsertionSort.Sort<int>(_randomIntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<int>(result);
         }
@@ -42,7 +41,7 @@ namespace UnitTest
         [TestMethod]
         public void TestInsertionSortListOfChar()
         {
-            List<char> result = InsertionSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken, _progress);
+            var result = InsertionSort.Sort<char>(TestInitialiser.CharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertChar(result);
         }
@@ -50,7 +49,7 @@ namespace UnitTest
         [TestMethod]
         public void TestInsertionSortRandomListOfChar()
         {
-            List<char> result = InsertionSort.Sort<List<char>, char>(_randomCharList, _cancellationToken, _progress);
+            var result = InsertionSort.Sort<char>(_randomCharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<char>(result);
         }
@@ -58,7 +57,7 @@ namespace UnitTest
         [TestMethod]
         public void TestInsertionSortListOfString()
         {
-            ArrayList result = InsertionSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken, _progress);
+            var result = InsertionSort.Sort<string>(TestInitialiser.StringList, _cancellationToken, _progress);
 
             TestInitialiser.AssertString(result);
         }

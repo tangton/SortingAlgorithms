@@ -1,11 +1,7 @@
 ﻿using SortingAlgorithmsBusinessAction.BinaryTree;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SortingAlgorithmsBusinessAction
 {
@@ -13,45 +9,43 @@ namespace SortingAlgorithmsBusinessAction
     {
         public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
         {
-            return Sort<List<int>, int>(collectionToSort, cancellationToken, progress);
+            return Sort<int>(collectionToSort, cancellationToken, progress);
         }
 
-        public static T Sort<T, T2>(T collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-            where T : IList
-            where T2 : IComparable
+        public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
+            where T : IComparable<T>
         {
-            BinaryTreeNode<T2> binaryTree = new BinaryTreeNode<T2>();
+            var binaryTree = new BinaryTreeNode<T>();
 
-            for(int i = 0; i < collectionToSort.Count; i++)
+            for(var i = 0; i < collectionToSort.Count; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (i % 100 == 1)
                 {
                     progress.Report(i);
                 }
-                binaryTree.Insert((T2)collectionToSort[i]);
+                binaryTree.Insert(collectionToSort[i]);
             }
 
-            T sortedList = Activator.CreateInstance<T>();
+            var sortedList = new List<T>();
 
-            ReadTree<T, T2>(binaryTree, sortedList);
+            ReadTree<T>(binaryTree, sortedList);
 
             return sortedList;
         }
 
-        private static void ReadTree<T, T2>(BinaryTreeNode<T2> node, T list)
-            where T : IList
-            where T2 : IComparable
+        private static void ReadTree<T>(BinaryTreeNode<T> node, ICollection<T> list)
+            where T : IComparable<T>
         {
-            BinaryTreeNode<T2> temp = node;
+            var temp = node;
             if (temp == null)
             {
                 return;
             }
 
-            ReadTree<T, T2>(temp.LeftNode, list);
+            ReadTree<T>(temp.LeftNode, list);
             list.Add(temp.Value);
-            ReadTree<T, T2>(temp.RightNode, list);
+            ReadTree<T>(temp.RightNode, list);
         }
     }
 }

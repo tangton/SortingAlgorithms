@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SortingAlgorithmsBusinessAction.BinaryTree
 {
-    public class BinaryTreeNode<T> where T : IComparable
+    public class BinaryTreeNode<T> where T : IComparable<T>
     {
         private bool _valueSet = false;
 

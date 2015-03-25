@@ -13,8 +13,8 @@ namespace UnitTest
         List<int> _randomIntList = new List<int>();
         List<char> _randomCharList = new List<char>();
 
-        CancellationToken _cancellationToken = new CancellationToken();
-        Progress<int> _progress = new Progress<int>();
+        readonly CancellationToken _cancellationToken = new CancellationToken();
+        readonly Progress<int> _progress = new Progress<int>();
 
         [TestInitialize()]
         public void Initialize()
@@ -26,7 +26,7 @@ namespace UnitTest
         [TestMethod]
         public void TestSelectionSortListOfInt()
         {
-            List<int> result = BubbleSort.Sort<List<int>, int>(TestInitialiser.IntList, _cancellationToken, _progress);
+            var result = BubbleSort.Sort<int>(TestInitialiser.IntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertInt(result);
         }
@@ -34,7 +34,7 @@ namespace UnitTest
         [TestMethod]
         public void TestBubbleSortRandomListOfInt()
         {
-            List<int> result = BubbleSort.Sort<List<int>, int>(_randomIntList, _cancellationToken, _progress);
+            var result = BubbleSort.Sort<int>(_randomIntList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<int>(result);
         }
@@ -42,7 +42,7 @@ namespace UnitTest
         [TestMethod]
         public void TestBubbleSortListOfChar()
         {
-            List<char> result = BubbleSort.Sort<List<char>, char>(TestInitialiser.CharList, _cancellationToken, _progress);
+            var result = BubbleSort.Sort<char>(TestInitialiser.CharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertChar(result);
         }
@@ -50,7 +50,7 @@ namespace UnitTest
         [TestMethod]
         public void TestBubbleSortRandomListOfChar()
         {
-            List<char> result = BubbleSort.Sort<List<char>, char>(_randomCharList, _cancellationToken, _progress);
+            var result = BubbleSort.Sort<char>(_randomCharList, _cancellationToken, _progress);
 
             TestInitialiser.AssertRandom<char>(result);
         }
@@ -58,7 +58,7 @@ namespace UnitTest
         [TestMethod]
         public void TestBubbleSortListOfString()
         {
-            ArrayList result = BubbleSort.Sort<ArrayList, string>(TestInitialiser.StringList, _cancellationToken, _progress);
+            var result = BubbleSort.Sort<string>(TestInitialiser.StringList, _cancellationToken, _progress);
 
             TestInitialiser.AssertString(result);
         }
