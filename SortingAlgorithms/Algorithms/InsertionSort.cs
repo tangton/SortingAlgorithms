@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace SortingAlgorithmsBusinessAction
+namespace SortingAlgorithms.Algorithms
 {
     public class InsertionSort
     {
-        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-        {
-            return Sort<int>(collectionToSort, cancellationToken, progress);
-        }
-
         public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IComparable<T>
         {

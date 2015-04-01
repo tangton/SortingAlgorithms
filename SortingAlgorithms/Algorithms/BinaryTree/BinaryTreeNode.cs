@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SortingAlgorithmsBusinessAction.BinaryTree
+namespace SortingAlgorithms.Algorithms.BinaryTree
 {
     public class BinaryTreeNode<T> where T : IComparable<T>
     {

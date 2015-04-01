@@ -1,21 +1,15 @@
-﻿using SortingAlgorithmsBusinessAction.BinaryTree;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace SortingAlgorithmsBusinessAction
+namespace SortingAlgorithms.Algorithms
 {
     public class BinarySearchTree
     {
-        public static List<int> Sort(List<int> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-        {
-            return Sort<int>(collectionToSort, cancellationToken, progress);
-        }
-
         public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
             where T : IComparable<T>
         {
-            var binaryTree = new BinaryTreeNode<T>();
+            var binaryTree = new SortingAlgorithms.Algorithms.BinaryTree.BinaryTreeNode<T>();
 
             for(var i = 0; i < collectionToSort.Count; i++)
             {
@@ -34,7 +28,7 @@ namespace SortingAlgorithmsBusinessAction
             return sortedList;
         }
 
-        private static void ReadTree<T>(BinaryTreeNode<T> node, ICollection<T> list)
+        private static void ReadTree<T>(SortingAlgorithms.Algorithms.BinaryTree.BinaryTreeNode<T> node, ICollection<T> list)
             where T : IComparable<T>
         {
             var temp = node;

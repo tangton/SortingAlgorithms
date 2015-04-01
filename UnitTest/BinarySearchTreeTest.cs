@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SortingAlgorithmsBusinessAction;
 using System.Collections.Generic;
 using System.Threading;
+using SortingAlgorithms.Algorithms;
 
 namespace UnitTest
 {
