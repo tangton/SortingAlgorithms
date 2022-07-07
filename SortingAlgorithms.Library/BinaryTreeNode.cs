@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SortingAlgorithms.Algorithms.BinaryTree
+namespace SortingAlgorithms.Library
 {
     public class BinaryTreeNode<T> where T : IComparable<T>
     {
@@ -10,17 +14,17 @@ namespace SortingAlgorithms.Algorithms.BinaryTree
         private BinaryTreeNode<T> _leftNode = null;
         private BinaryTreeNode<T> _rightNode = null;
 
-        public T Value 
-        { 
-            get { return _value; } 
+        public T Value
+        {
+            get { return _value; }
         }
 
-        public BinaryTreeNode<T> LeftNode 
+        public BinaryTreeNode<T> LeftNode
         {
             get { return _leftNode; }
         }
 
-        public BinaryTreeNode<T> RightNode 
+        public BinaryTreeNode<T> RightNode
         {
             get { return _rightNode; }
         }

@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace SortingAlgorithms.Algorithms
+namespace SortingAlgorithms.Library
 {
-    public class BinarySearchTree
+    public class BinarySearchTreeAlgorithm : ISortingAlgorithm
     {
-        public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-            where T : IComparable<T>
+        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
-            var binaryTree = new SortingAlgorithms.Algorithms.BinaryTree.BinaryTreeNode<T>();
+            var binaryTree = new BinaryTreeNode<T>();
 
-            for(var i = 0; i < collectionToSort.Count; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (i % 100 == 1)
                 {
                     progress.Report(i);
                 }
-                binaryTree.Insert(collectionToSort[i]);
+                binaryTree.Insert(collection[i]);
             }
 
             var sortedList = new List<T>();
@@ -28,7 +30,7 @@ namespace SortingAlgorithms.Algorithms
             return sortedList;
         }
 
-        private static void ReadTree<T>(SortingAlgorithms.Algorithms.BinaryTree.BinaryTreeNode<T> node, ICollection<T> list)
+        private static void ReadTree<T>(BinaryTreeNode<T> node, ICollection<T> list)
             where T : IComparable<T>
         {
             var temp = node;

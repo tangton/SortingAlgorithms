@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace SortingAlgorithms.Algorithms
+namespace SortingAlgorithms.Library
 {
-    public class InsertionSort
+    public class InsertionSortAlgorithm : ISortingAlgorithm
     {
-        public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-            where T : IComparable<T>
+        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
-            var sortedList = collectionToSort.ToList();
+            var sortedList = collection.ToList();
 
             for (var i = 1; i < sortedList.Count; i++)
             {
@@ -24,7 +25,7 @@ namespace SortingAlgorithms.Algorithms
                 while (j > 0 &&
                     sortedList[j - 1].CompareTo(sortedList[j]) > 0)
                 {
-                    var tempValue = sortedList[j -1];
+                    var tempValue = sortedList[j - 1];
 
                     sortedList[j - 1] = sortedList[j];
                     sortedList[j] = tempValue;

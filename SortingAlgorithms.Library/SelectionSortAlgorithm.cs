@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace SortingAlgorithms.Algorithms
+namespace SortingAlgorithms.Library
 {
-    public class SelectionSort
+    public class SelectionSortAlgorithm : ISortingAlgorithm
     {
-        public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-            where T : IComparable<T>
+        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
-            var sortedList = collectionToSort.ToList();
+            var sortedList = collection.ToList();
 
             for (var i = 0; i < sortedList.Count; i++)
             {
                 if (i % 100 == 0)
-                { 
+                {
                     progress.Report(i);
                 }
                 cancellationToken.ThrowIfCancellationRequested();

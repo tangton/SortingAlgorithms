@@ -6,6 +6,6 @@ namespace SortingAlgorithms
     public class SortResult
     {
         public TimeSpan Duration { get; set; }
-        public List<int> SortedList { get; set; } 
+        public IList<int> SortedList { get; set; } 
     }
 }

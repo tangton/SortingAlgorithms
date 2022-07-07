@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace SortingAlgorithms.Algorithms
+namespace SortingAlgorithms.Library
 {
-    public class BubbleSort
+    public class BubbleSortAlgorithm : ISortingAlgorithm
     {
-        public static List<T> Sort<T>(List<T> collectionToSort, CancellationToken cancellationToken, IProgress<int> progress)
-            where T : IComparable<T>
+        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
-            var sortedList = collectionToSort.ToList();
+            var sortedList = collection.ToList();
 
             for (var j = 0; j < sortedList.Count; j++)
             {
@@ -24,7 +25,7 @@ namespace SortingAlgorithms.Algorithms
 
                 for (var i = 0; i < sortedList.Count; i++)
                 {
-                    if (i + 1 < sortedList.Count && 
+                    if (i + 1 < sortedList.Count &&
                         sortedList[i].CompareTo(sortedList[i + 1]) > 0)
                     {
                         // swap
