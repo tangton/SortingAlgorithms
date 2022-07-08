@@ -9,7 +9,7 @@ namespace SortingAlgorithms.Library
 {
     public class InsertionSortAlgorithm : ISortingAlgorithm
     {
-        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
+        public IEnumerable<T> Sort<T>(IEnumerable<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
             var sortedList = collection.ToList();
 

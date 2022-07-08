@@ -9,6 +9,6 @@ namespace SortingAlgorithms.Library
 {
     public interface ISortingAlgorithm
     {
-        IList<T> Sort<T>(IList<T> values, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>;
+        IEnumerable<T> Sort<T>(IEnumerable<T> values, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>;
     }
 }

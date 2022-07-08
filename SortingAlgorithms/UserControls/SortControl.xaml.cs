@@ -37,7 +37,7 @@ namespace SortingAlgorithms.UserControls
             this.DataContext = this;
         }
 
-        public async Task Run(ISortingAlgorithm sortingAlgorithm, IList<int> listToSort, CancellationToken cancellationToken)
+        public async Task Run(ISortingAlgorithm sortingAlgorithm, IEnumerable<int> listToSort, CancellationToken cancellationToken)
         {
             IProgress<int> progressBar;
             IProgress<bool> progressStatusLabel;
@@ -48,7 +48,7 @@ namespace SortingAlgorithms.UserControls
             lblStatusState.Content = "Pending...";
             lblResultSortList.Content = string.Empty;
             pbStatus.Value = 0;
-            pbStatus.Maximum = listToSort.Count;
+            pbStatus.Maximum = listToSort.Count();
 
             var task = Task.Factory.StartNew(() =>
             {
@@ -92,7 +92,7 @@ namespace SortingAlgorithms.UserControls
             }
             else if (!failed)
             {
-                pbStatus.Value = listToSort.Count;
+                pbStatus.Value = listToSort.Count();
                 lblStatusState.Content = "Done. Time taken: " + durationOfSort;
                 lblResultSortList.Content = String.Join(", ", task.Result.SortedList);
             }

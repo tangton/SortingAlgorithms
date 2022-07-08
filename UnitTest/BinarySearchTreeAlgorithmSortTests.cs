@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Threading;
 using SortingAlgorithms.Library;
+using System.Linq;
 
 namespace UnitTest
 {
@@ -31,13 +32,14 @@ namespace UnitTest
             var sortingAlgorithm = new BinarySearchTreeAlgorithm();
 
             var result = sortingAlgorithm.Sort<int>(_intLists, _cancellationToken, _progress);
+            var resultList = result.ToList();
 
-            Assert.AreEqual(-1, result[0]);
-            Assert.AreEqual(0, result[1]);
-            Assert.AreEqual(1, result[2]);
-            Assert.AreEqual(5, result[3]);
-            Assert.AreEqual(10, result[4]);
-            Assert.AreEqual(10, result[5]);
+            Assert.AreEqual(-1, resultList[0]);
+            Assert.AreEqual(0, resultList[1]);
+            Assert.AreEqual(1, resultList[2]);
+            Assert.AreEqual(5, resultList[3]);
+            Assert.AreEqual(10, resultList[4]);
+            Assert.AreEqual(10, resultList[5]);
         }
 
         [TestMethod]
@@ -46,11 +48,12 @@ namespace UnitTest
             var sortingAlgorithm = new BinarySearchTreeAlgorithm();
 
             var result = sortingAlgorithm.Sort<char>(_charLists, _cancellationToken, _progress);
+            var resultList = result.ToList();
 
-            Assert.AreEqual('a', result[0]);
-            Assert.AreEqual('b', result[1]);
-            Assert.AreEqual('b', result[2]);
-            Assert.AreEqual('z', result[3]);
+            Assert.AreEqual('a', resultList[0]);
+            Assert.AreEqual('b', resultList[1]);
+            Assert.AreEqual('b', resultList[2]);
+            Assert.AreEqual('z', resultList[3]);
         }
 
         [TestMethod]
@@ -59,11 +62,12 @@ namespace UnitTest
             var sortingAlgorithm = new BinarySearchTreeAlgorithm();
 
             var result = sortingAlgorithm.Sort<string>(_stringList, _cancellationToken, _progress);
+            var resultList = result.ToList();
 
-            Assert.AreEqual("Four", result[0]);
-            Assert.AreEqual("One", result[1]);
-            Assert.AreEqual("Three", result[2]);
-            Assert.AreEqual("Two", result[3]);
+            Assert.AreEqual("Four", resultList[0]);
+            Assert.AreEqual("One", resultList[1]);
+            Assert.AreEqual("Three", resultList[2]);
+            Assert.AreEqual("Two", resultList[3]);
         }
     }
 }

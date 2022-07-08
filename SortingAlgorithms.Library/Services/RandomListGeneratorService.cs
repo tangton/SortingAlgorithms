@@ -5,12 +5,12 @@ namespace SortingAlgorithms.Library.Services
 {
     public interface IRandomListGeneratorService
     {
-        IList<int> GenerateRandomList(int listSize);
+        IEnumerable<int> GenerateRandomList(int listSize);
     }
 
     public class RandomListGeneratorService : IRandomListGeneratorService
     {
-        public IList<int> GenerateRandomList(int listSize)
+        public IEnumerable<int> GenerateRandomList(int listSize)
         {
             var randomIntList = new List<int>();
 

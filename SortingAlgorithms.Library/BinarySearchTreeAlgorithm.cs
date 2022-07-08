@@ -9,18 +9,20 @@ namespace SortingAlgorithms.Library
 {
     public class BinarySearchTreeAlgorithm : ISortingAlgorithm
     {
-        public IList<T> Sort<T>(IList<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
+        public IEnumerable<T> Sort<T>(IEnumerable<T> collection, CancellationToken cancellationToken, IProgress<int> progress) where T : IComparable<T>
         {
             var binaryTree = new BinaryTreeNode<T>();
 
-            for (var i = 0; i < collection.Count; i++)
+            var counter = 0;
+            foreach(var item in collection)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                if (i % 100 == 1)
+                if (counter % 100 == 1)
                 {
-                    progress.Report(i);
+                    progress.Report(counter);
                 }
-                binaryTree.Insert(collection[i]);
+                binaryTree.Insert(item);
+                counter++;
             }
 
             var sortedList = new List<T>();
